@@ -1,7 +1,6 @@
 webdriver-manager
 selenium
 pyautogui
-psutil
 pygetwindow
 python-dotenv
 openpyxl
