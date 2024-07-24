@@ -1,4 +1,5 @@
 from functions import editing_xlsx, import_column_from_xlsx
+from pygetwindow import getWindowsWithTitle
 from time import sleep
 import pyautogui
 import logging
@@ -18,7 +19,8 @@ class EFDContribuicoes:
         self._process()
         
     def _process(self) -> None:
-        self.open_efd()
+        if self.finding_if_the_app_is_open() is False:
+            self.open_efd()
         
         for path in self.txt_path:
             self.import_shortcut()
@@ -31,6 +33,11 @@ class EFDContribuicoes:
             
         self.editing_the_paths_in_excel(self.index, self.pdfs_path)
         sleep(5)
+    
+    def finding_if_the_app_is_open(self) -> bool:
+        if getWindowsWithTitle('EFD Contribuições'):  
+            return True
+        return False
     
     def import_index_path_from_excel(self) -> list:
         index_data = import_column_from_xlsx(
@@ -86,6 +93,7 @@ class EFDContribuicoes:
     
     def close_pop_ups_download(self) -> None:
         try:
+            logging.info('Procurando pop-ups')
             pyautogui.locateCenterOnScreen(
                 image='refer_images/EFD_Contribuicoes/ArquivoAvisos.png'
             )

@@ -162,10 +162,10 @@ class DominioWeb:
         try:
             self.mouse_to_center() # Move o mouse para o centro da tela
 
-            
+            logging.info("Procurando TRComputerPluginWindows")
             
             abrir_button = pyautogui.locateCenterOnScreen(
-                "refer_images/Browser/TRComputerPluginWindows.png"
+                "refer_images/Browser/TRComputerPluginWindows.png",
             )
             
             logging.info("TRComputerPluginWindows achado")
@@ -174,8 +174,9 @@ class DominioWeb:
             pyautogui.moveTo(abrir_button)
             pyautogui.click()
             
+            sleep(5)
+            
         except pyautogui.ImageNotFoundException:
-            logging.info("Procurando TRComputerPluginWindows")
             logging.info("TRComputerPluginWindows não achado")
             self.open_dominio()
 
